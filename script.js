@@ -70,7 +70,7 @@ async function handleFormSubmit(e, isLogin) {
 
     if (!isLogin) formData.nome = document.getElementById('register-fullname').value;
 
-    const response = await fetch(`http://127.0.0.1:10000/${formType}`, {
+    const response = await fetch(`https://bas-9eig.onrender.com/${formType}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData)
