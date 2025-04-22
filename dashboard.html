@@ -314,14 +314,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (data.success) {
                 const modulosLiberados = data.modulos;
+
                 document.querySelectorAll(".module-cover").forEach(modulo => {
                     const id = parseInt(modulo.getAttribute("data-module"));
-                    const linkModulo = getModuloLink(id);
+                    const estaLiberado = modulosLiberados.includes(id);
+                    const linkInterno = `modulo${id}.html`;
+                    const linkExterno = getModuloLink(id);
 
-                    if (modulosLiberados.includes(id)) {
+                    if (estaLiberado) {
                         modulo.classList.remove("locked");
                         modulo.innerHTML = `
-                            <a href="${linkModulo}" class="block" target="_blank">
+                            <a href="${linkInterno}" class="block">
                                 <div class="aspect-[3/4]">
                                     <img src="${id}.jpeg" class="w-full h-full object-cover" alt="Módulo ${id}">
                                 </div>
@@ -347,7 +350,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 atualizarProgresso(modulosLiberados.length);
             } else {
-                console.error("Erro ao carregar módulos:", data.message);
                 alert("Erro ao carregar os módulos.");
             }
         } catch (error) {
@@ -394,14 +396,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // Inicializa
     document.getElementById("moduleModal").style.display = "none";
-
     document.querySelector("#moduleModal button:nth-child(1)")?.addEventListener("click", closeModal);
     document.querySelector("#moduleModal button:nth-child(2)")?.addEventListener("click", purchaseModule);
 
     carregarModulos(email);
 });
 
+// === Trocar Tema ===
 function changeTheme() {
     const body = document.body;
     const logo = document.getElementById('theme-logo');
@@ -417,3 +420,4 @@ function changeTheme() {
     logo.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue(`--primary`);
 }
 </script>
+
