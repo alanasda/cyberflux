@@ -291,127 +291,129 @@
     </div>
 </div>
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const email = localStorage.getItem("email");
+document.addEventListener("DOMContentLoaded", () => {
+    const email = localStorage.getItem("email");
 
-        if (!email || email === "undefined") {
-            alert("Você precisa fazer login novamente.");
-            window.location.href = "index.html";
-            return;
-        }
+    if (!email || email === "undefined") {
+        alert("Você precisa fazer login novamente.");
+        window.location.href = "index.html";
+        return;
+    }
 
-        let selectedModule = null;
+    let selectedModule = null;
 
-        async function carregarModulos(email) {
-            try {
-                const res = await fetch("https://bas-9eig.onrender.com/modulos", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ email })
+    async function carregarModulos(email) {
+        try {
+            const res = await fetch("https://bas-9eig.onrender.com/modulos", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email })
+            });
+
+            const data = await res.json();
+
+            if (data.success) {
+                const modulosLiberados = data.modulos;
+                document.querySelectorAll(".module-cover").forEach(modulo => {
+                    const id = parseInt(modulo.getAttribute("data-module"));
+                    const linkModulo = getModuloLink(id);
+
+                    if (modulosLiberados.includes(id)) {
+                        modulo.classList.remove("locked");
+                        modulo.innerHTML = `
+                            <a href="${linkModulo}" class="block" target="_blank">
+                                <div class="aspect-[3/4]">
+                                    <img src="${id}.jpeg" class="w-full h-full object-cover" alt="Módulo ${id}">
+                                </div>
+                            </a>
+                            <div class="badge-comprado">
+                                <i class="fas fa-check mr-1"></i>COMPRADO
+                            </div>
+                        `;
+                    } else {
+                        modulo.classList.add("locked");
+                        modulo.innerHTML = `
+                            <div class="aspect-[3/4]">
+                                <img src="${id}.jpeg" class="w-full h-full object-cover" alt="Módulo ${id}">
+                            </div>
+                        `;
+                        modulo.addEventListener("click", () => {
+                            selectedModule = id;
+                            document.getElementById("moduleName").textContent = `Módulo ${id}`;
+                            document.getElementById("moduleModal").style.display = "flex";
+                        });
+                    }
                 });
 
-                const data = await res.json();
-
-                if (data.success) {
-                    const modulosLiberados = data.modulos;
-                    document.querySelectorAll(".module-cover").forEach(modulo => {
-                        const id = parseInt(modulo.getAttribute("data-module"));
-                        const linkModulo = `modulo${id}.html`; // Ajuste conforme a estrutura dos seus arquivos de módulo
-
-                        if (modulosLiberados.includes(id)) {
-                            modulo.classList.remove("locked");
-                            modulo.innerHTML = `
-                                <a href="<span class="math-inline">\{linkModulo\}" class\="block"\>
-<div class\="aspect\-\[3/4\]"\>
-<img src\="</span>{id}.jpeg" class="w-full h-full object-cover" alt="Módulo ${id}">
-                                    </div>
-                                </a>
-                                <div class="badge-comprado">
-                                    <i class="fas fa-check mr-1"></i>COMPRADO
-                                </div>
-                            `;
-                        } else {
-                            modulo.classList.add("locked");
-                            modulo.addEventListener("click", () => {
-                                selectedModule = id;
-                                document.getElementById("moduleName").textContent = `Módulo ${id}`;
-                                document.getElementById("moduleModal").style.display = "flex";
-                            });
-                        }
-                    });
-                } else {
-                    console.error("Erro ao carregar módulos:", data.message);
-                    alert("Erro ao carregar os módulos.");
-                }
-            } catch (error) {
-                console.error("Erro ao carregar módulos:", error);
-                }
-        }
-
-        function getModuloLink(id) {
-            const links = {
-                11: "https://www.youtube.com/watch?v=VIDEO_DO_MODULO_1",
-                12: "https://www.instagram.com/seu_modulo_2",
-                13: "https://exemplo.com/modulo3",
-                14: "https://exemplo.com/modulo4"
-            };
-            return links[id] || "https://seusite.com/modulo-nao-encontrado";
-        }
-
-        document.getElementById("moduleModal").style.display = "none";
-
-        function closeModal() {
-            document.getElementById("moduleModal").style.display = "none";
-            selectedModule = null;
-        }
-
-        function purchaseModule() {
-            if (selectedModule) {
-                const link = getModuloLink(selectedModule);
-                window.open(link, "_blank");
-                closeModal();
+                atualizarProgresso(modulosLiberados.length);
+            } else {
+                console.error("Erro ao carregar módulos:", data.message);
+                alert("Erro ao carregar os módulos.");
             }
+        } catch (error) {
+            console.error("Erro ao carregar módulos:", error);
+            alert("Erro de conexão com o servidor.");
         }
-
-        const cancelBtn = document.querySelector("#moduleModal button:nth-child(1)");
-        const adquirirBtn = document.querySelector("#moduleModal button:nth-child(2)");
-
-        if (cancelBtn) {
-            cancelBtn.addEventListener("click", closeModal);
-        }
-
-        if (adquirirBtn) {
-            adquirirBtn.addEventListener("click", purchaseModule);
-        }
-
-        carregarModulos(email);
-
-        function togglePerfilMenu() {
-            const menu = document.getElementById("perfilMenu");
-            menu.classList.toggle("hidden");
-            const email = localStorage.getItem("email") || "desconhecido";
-            document.getElementById("perfilEmail").textContent = email;
-        }
-
-        function trocarSenha() {
-            alert("Funcionalidade em desenvolvimento.");
-        }
-    });
-
-    function changeTheme() {
-        const body = document.body;
-        const logo = document.getElementById('theme-logo');
-        const currentTheme = body.className.split(' ').find(c => c.startsWith('theme-'));
-        let nextThemeNumber = 1;
-
-        if (currentTheme) {
-            const currentThemeNumber = parseInt(currentTheme.split('-')[1], 10);
-            nextThemeNumber = (currentThemeNumber % 4) + 1;
-        }
-
-        body.className = body.className.replace(currentTheme, `theme-${nextThemeNumber}`).trim();
-        logo.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue(`--primary`);
     }
+
+    function getModuloLink(id) {
+        const links = {
+            11: "https://www.youtube.com/watch?v=VIDEO_DO_MODULO_1",
+            12: "https://www.instagram.com/seu_modulo_2",
+            13: "https://exemplo.com/modulo3",
+            14: "https://exemplo.com/modulo4"
+        };
+        return links[id] || "#";
+    }
+
+    function closeModal() {
+        document.getElementById("moduleModal").style.display = "none";
+        selectedModule = null;
+    }
+
+    function purchaseModule() {
+        if (selectedModule) {
+            const link = getModuloLink(selectedModule);
+            window.open(link, "_blank");
+            closeModal();
+        }
+    }
+
+    function atualizarProgresso(modulosComprados) {
+        const total = document.querySelectorAll(".module-cover").length;
+        const percentual = Math.min(Math.round((modulosComprados / total) * 100), 100);
+        document.getElementById("progressPercentage").innerText = `${percentual}%`;
+        document.getElementById("progressBar").style.width = `${percentual}%`;
+    }
+
+    function togglePerfilMenu() {
+        const menu = document.getElementById("perfilMenu");
+        if (menu) {
+            menu.classList.toggle("hidden");
+            document.getElementById("perfilEmail").textContent = localStorage.getItem("email") || "desconhecido";
+        }
+    }
+
+    document.getElementById("moduleModal").style.display = "none";
+
+    document.querySelector("#moduleModal button:nth-child(1)")?.addEventListener("click", closeModal);
+    document.querySelector("#moduleModal button:nth-child(2)")?.addEventListener("click", purchaseModule);
+
+    carregarModulos(email);
+});
+
+function changeTheme() {
+    const body = document.body;
+    const logo = document.getElementById('theme-logo');
+    const currentTheme = body.className.split(' ').find(c => c.startsWith('theme-'));
+    let nextThemeNumber = 1;
+
+    if (currentTheme) {
+        const currentThemeNumber = parseInt(currentTheme.split('-')[1], 10);
+        nextThemeNumber = (currentThemeNumber % 4) + 1;
+    }
+
+    body.className = body.className.replace(currentTheme, `theme-${nextThemeNumber}`).trim();
+    logo.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue(`--primary`);
+}
 </script>
-</body>
-</html>
