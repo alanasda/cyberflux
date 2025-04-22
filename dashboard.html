@@ -326,7 +326,7 @@
 
   async function carregarModulos(email) {
     try {
-      const res = await fetch("http://127.0.0.1:10000/modulos", {
+      const res = await fetch("https://bas-9eig.onrender.com/modulos", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email })
