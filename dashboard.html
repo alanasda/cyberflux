@@ -1,8 +1,4 @@
-
-
-
 <!DOCTYPE html>
-
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8"/>
@@ -18,57 +14,57 @@
       --secondary: #003b55; /* azul petróleo escuro */
       --theme-image: url('https://storage.googleapis.com/a1aa/image/3We6JW0tVPh9c5P1xWbB8qCbt1WMeV_yFjQChn9NlFo.jpg');
     }
-  
+
     .bg-black {
       background-color: black !important; /* azul neon escuro brabo */
     }
-  
+
     body {
       background-color: black; /* azul neon escuro suave */
       color: white;
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-  
+
     @keyframes fadeIn {
       0% { opacity: 0; transform: translateY(-20px); }
       100% { opacity: 1; transform: translateY(0); }
     }
-  
+
     .fade-in {
       opacity: 0;
       animation: fadeIn 1s ease forwards;
     }
-  
+
     .hero-banner {
       height: 70vh;
       min-height: 500px;
       position: relative;
     }
-  
+
     .hero-banner img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
-  
+
     .module-container {
       scroll-behavior: smooth;
     }
-  
+
     .module-container::-webkit-scrollbar {
       height: 8px;
     }
-  
+
     .module-container::-webkit-scrollbar-track {
       background: #0a0a0a;
     }
-  
+
     .module-container::-webkit-scrollbar-thumb {
       background: var(--primary);
       border-radius: 4px;
     }
-  
+
     .theme-btn {
       position: fixed;
       bottom: 150px;
@@ -84,41 +80,41 @@
       border: none;
       transition: all 0.3s ease;
     }
-  
+
     .theme-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 20px var(--primary);
     }
-  
+
     .module-cover {
       border: 1px solid var(--primary);
       transition: all 0.3s ease;
       background-color: #002b3d; /* tom complementar do azul escuro neon */
     }
-  
+
     @keyframes floatUp {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-5px); }
     }
-  
+
     @keyframes floatDown {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(5px); }
     }
-  
+
     #modulesContainer > div:nth-child(even) {
       animation: floatUp 3s ease-in-out infinite;
     }
-  
+
     #modulesContainer > div:nth-child(odd) {
       animation: floatDown 3s ease-in-out infinite;
     }
-  
+
     .module-cover.locked {
       position: relative;
       cursor: pointer;
     }
-  
+
     .module-cover.locked::after {
       content: "";
       position: absolute;
@@ -129,7 +125,7 @@
       background: rgba(0, 0, 0, 0.7);
       border-radius: 0.75rem;
     }
-  
+
     .module-cover.locked::before {
       content: "\f023";
       font-family: "Font Awesome 5 Free";
@@ -142,14 +138,14 @@
       font-size: 2.5rem;
       z-index: 10;
     }
-  
+
     .module-cover.locked:hover::before {
       content: "Desbloquear Módulo";
       font-size: 1.1rem;
       font-family: sans-serif;
       white-space: nowrap;
     }
-  
+
     #moduleModal {
       display: none;
       position: fixed;
@@ -162,7 +158,7 @@
       align-items: center;
       justify-content: center;
     }
-  
+
     .modal-content {
       background: #002b3d;
       border: 2px solid var(--primary);
@@ -172,7 +168,7 @@
       width: 90%;
       text-align: center;
     }
-  
+
     .badge-comprado {
       position: absolute;
       top: 10px;
@@ -185,13 +181,13 @@
       border-radius: 9999px;
       z-index: 10;
     }
-  
+
     /* Temas */
     .theme-1 { --primary: #FF6B00; --secondary: #FFD600; }
     .theme-2 { --primary: #d7fe1f; --secondary: #d7fe1f; }
     .theme-3 { --primary: #4ee487; --secondary: #4ee487; }
     .theme-4 { --primary: #29b0f7; --secondary:  #29b0f7; }
-    
+
   </style>
 </head>
 <body class="bg-black text-white theme-1">
@@ -219,7 +215,7 @@
 <div class="relative container mx-auto px-4 h-full flex items-center">
 <div class="max-w-2xl">
 <h1 class="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-[color:var(--primary)] to-[color:var(--secondary)] bg-clip-text text-transparent">
-          Bem vindos(A) 
+          Bem vindos(A)
         </h1>
 <p class="text-xl md:text-2xl text-gray-300 mb-8">
           Acesse o modulo que você adquirió
@@ -237,30 +233,6 @@
 <h2 class="text-2xl font-bold">Módulos do Curso</h2>
 </div>
 <div class="module-container flex overflow-x-auto pb-6 gap-6 scroll-smooth" id="modulesContainer">
-<!-- MÓDULO 1 - COMPRADO -->
-<div class="relative min-w-[300px] bg-gray-900 rounded-xl overflow-hidden module-cover locked" data-module="11">
-<div class="aspect-[3/4]">
-<img alt="Módulo 1" class="w-full h-full object-cover" src="11.jpeg"/>
-</div>
-</div>
-<!-- MÓDULO 2 - BLOQUEADO -->
-<div class="relative min-w-[300px] bg-gray-900 rounded-xl overflow-hidden module-cover locked" data-module="12">
-<div class="aspect-[3/4]">
-<img alt="Módulo 2" class="w-full h-full object-cover" src="12.jpeg"/>
-</div>
-</div>
-<!-- MÓDULO 3 - BLOQUEADO -->
-<div class="relative min-w-[300px] bg-gray-900 rounded-xl overflow-hidden module-cover locked" data-module="13">
-<div class="aspect-[3/4]">
-<img alt="Módulo 3" class="w-full h-full object-cover" src="13.jpeg"/>
-</div>
-</div>
-<!-- MÓDULO 4 - BLOQUEADO -->
-<div class="relative min-w-[300px] bg-gray-900 rounded-xl overflow-hidden module-cover locked" data-module="14">
-<div class="aspect-[3/4]">
-<img alt="Módulo 4" class="w-full h-full object-cover" src="14.jpeg"/>
-</div>
-</div>
 </div>
 </section>
 <div class="bg-gray-900 rounded-xl p-6 mb-12">
@@ -275,7 +247,6 @@
 <section class="mb-16">
 <h3 class="text-2xl font-bold mb-4">Aulas Concluídas</h3>
 <ul class="list-disc pl-5 text-gray-300" id="completedList">
-<!-- Itens dinâmicos -->
 </ul>
 </section>
 </main>
@@ -289,7 +260,6 @@
 <i class="fas fa-trophy block text-xl mb-1"></i>Prêmios</a>
 </div>
 </footer>
-<!-- MODAL DE DESBLOQUEIO -->
 <div id="moduleModal">
 <div class="modal-content">
 <h3 class="text-2xl font-bold mb-4 text-[color:var(--primary)]">Desbloquear Módulo</h3>
@@ -308,8 +278,6 @@
     const email = localStorage.getItem("email") || "desconhecido";
     document.getElementById("perfilEmail").textContent = email;
   }
-
-
 
   function trocarSenha() {
     alert("Funcionalidade em desenvolvimento.");
@@ -336,16 +304,29 @@
 
       if (data.success) {
         const modulosLiberados = data.modulos;
+        const modulesContainer = document.getElementById("modulesContainer");
+        modulesContainer.innerHTML = ""; // Limpa os módulos existentes
 
-        document.querySelectorAll(".module-cover").forEach(modulo => {
-          const id = parseInt(modulo.getAttribute("data-module"));
+        for (let i = 11; i <= 14; i++) { // Assumindo que seus módulos têm IDs de 11 a 14
+          const moduloDiv = document.createElement("div");
+          moduloDiv.classList.add("relative", "min-w-[300px]", "bg-gray-900", "rounded-xl", "overflow-hidden", "module-cover");
+          moduloDiv.setAttribute("data-module", i);
 
-          if (modulosLiberados.includes(id)) {
-            modulo.classList.remove("locked");
-            modulo.innerHTML = `
-              <a href="modulo${id}.html" class="block">
+          const imgDiv = document.createElement("div");
+          imgDiv.classList.add("aspect-[3/4]");
+          const img = document.createElement("img");
+          img.src = `${i}.jpeg`;
+          img.alt = `Módulo ${i}`;
+          img.classList.add("w-full", "h-full", "object-cover");
+          imgDiv.appendChild(img);
+          moduloDiv.appendChild(imgDiv);
+
+          if (modulosLiberados.includes(i)) {
+            moduloDiv.classList.remove("locked");
+            moduloDiv.innerHTML = `
+              <a href="modulo${i}.html" class="block">
                 <div class="aspect-[3/4]">
-                  <img src="${id}.jpeg" class="w-full h-full object-cover" alt="Módulo ${id}">
+                  <img src="${i}.jpeg" class="w-full h-full object-cover" alt="Módulo ${i}">
                 </div>
               </a>
               <div class="badge-comprado">
@@ -353,17 +334,21 @@
               </div>
             `;
           } else {
-            modulo.classList.add("locked");
-            modulo.addEventListener("click", () => {
-              selectedModule = id;
-              document.getElementById("moduleName").textContent = `Módulo ${id}`;
+            moduloDiv.classList.add("locked");
+            moduloDiv.addEventListener("click", () => {
+              selectedModule = i;
+              document.getElementById("moduleName").textContent = `Módulo ${i}`;
               document.getElementById("moduleModal").style.display = "flex";
             });
           }
-        });
+          modulesContainer.appendChild(moduloDiv);
+        }
       }
-  
-  
+    } catch (error) {
+      console.error("Erro ao carregar módulos:", error);
+      alert("Erro ao carregar os módulos.");
+    }
+  }
 
   function getModuloLink(id) {
     const links = {
@@ -377,28 +362,47 @@
 
   document.getElementById("moduleModal").style.display = "none";
 
-  const cancelBtn = document.querySelector("#moduleModal button:nth-child(1), #cancelarBtn");
-  const adquirirBtn = document.querySelector("#moduleModal button:nth-child(2), #adquirirBtn");
+  function closeModal() {
+    document.getElementById("moduleModal").style.display = "none";
+    selectedModule = null;
+  }
+
+ function purchaseModule() {
+    if (selectedModule) {
+      const link = getModuloLink(selectedModule);
+      window.open(link, "_blank");
+      closeModal();
+    }
+  }
+
+  const cancelBtn = document.querySelector("#moduleModal button:nth-child(1)");
+  const adquirirBtn = document.querySelector("#moduleModal button:nth-child(2)");
 
   if (cancelBtn) {
-    cancelBtn.addEventListener("click", () => {
-      document.getElementById("moduleModal").style.display = "none";
-    });
+    cancelBtn.addEventListener("click", closeModal);
   }
 
   if (adquirirBtn) {
-    adquirirBtn.addEventListener("click", () => {
-      if (selectedModule) {
-        const link = getModuloLink(selectedModule);
-        window.open(link, "_blank");
-        document.getElementById("moduleModal").style.display = "none";
-      }
-    });
+    adquirirBtn.addEventListener("click", purchaseModule);
   }
 
   carregarModulos(email);
 });
 
+function changeTheme() {
+  const body = document.body;
+  const logo = document.getElementById('theme-logo');
+  const currentTheme = body.className.split(' ').find(c => c.startsWith('theme-'));
+  let nextThemeNumber = 1;
+
+  if (currentTheme) {
+    const currentThemeNumber = parseInt(currentTheme.split('-')[1], 10);
+    nextThemeNumber = (currentThemeNumber % 4) + 1;
+  }
+
+  body.className = body.className.replace(currentTheme, `theme-${nextThemeNumber}`).trim();
+  logo.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue(`--primary`);
+}
 </script>
 </body>
 </html>
