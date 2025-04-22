@@ -309,10 +309,7 @@
     document.getElementById("perfilEmail").textContent = email;
   }
 
-  function logout() {
-    localStorage.clear();
-    window.location.href = "index.html";
-  }
+
 
   function trocarSenha() {
     alert("Funcionalidade em desenvolvimento.");
@@ -329,7 +326,7 @@
 
   async function carregarModulos(email) {
     try {
-      const res = await fetch("https://bas-9eig.onrender.com/modulos", {
+      const res = await fetch("http://127.0.0.1:10000/modulos", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email })
@@ -365,11 +362,8 @@
           }
         });
       }
-    } catch (err) {
-      console.error("Erro ao carregar módulos:", err);
-      window.location.href = "index.html";
-    }
-  }
+  
+  
 
   function getModuloLink(id) {
     const links = {
