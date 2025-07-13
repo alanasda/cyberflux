@@ -79,14 +79,14 @@ async function handleFormSubmit(e, isLogin) {
     const data = await response.json();
 
     if (!data.success) {
-      showMessage(formType, `⚠️ ${data.message}`);
+      showMessage(formType, `⚠️ ${data.message || data.error || 'Erro desconhecido'}`);
       return;
     }
 
     if (isLogin) {
       const usuario = data.usuario || {};
       showMessage('login', `🛡️ Bem-vindo, ${usuario.nome || 'usuário'}! Redirecionando...`, true);
-      localStorage.setItem("email", usuario.email); // ✅ Corrigido
+      localStorage.setItem("email", usuario.email);
       localStorage.setItem("modulos", JSON.stringify(usuario.modulos || []));
       setTimeout(() => (window.location.href = 'dashboard.html'), 1500);
     } else {
